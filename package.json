@@ -20,5 +20,15 @@
   "bugs": {
     "url": "https://github.com/codekirei/hari/issues"
   },
-  "homepage": "https://github.com/codekirei/hari#readme"
+  "homepage": "https://github.com/codekirei/hari#readme",
+  "dependencies": {
+    "bluebird": "^3.1.1",
+    "chokidar": "^1.4.1",
+    "clor": "^2.0.2",
+    "read-package-json": "^2.0.2"
+  },
+  "devDependencies": {
+    "ava": "^0.8.0",
+    "nyc": "^5.0.1"
+  }
 }
