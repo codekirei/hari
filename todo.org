@@ -1,0 +1,6 @@
+- [ ] add duration metric
+- [ ] improve header box (round corners etc)
+- [ ] write tests
+- [ ] make example
+- [ ] travis + coveralls
+- [ ] publish on npm
