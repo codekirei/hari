@@ -1,0 +1,24 @@
+{
+  "name": "hari",
+  "version": "0.1.0",
+  "description": "automated script runner",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codekirei/hari.git"
+  },
+  "keywords": [
+    "automated",
+    "runner",
+    "watch"
+  ],
+  "author": "Jacob Blakely (codekirei)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codekirei/hari/issues"
+  },
+  "homepage": "https://github.com/codekirei/hari#readme"
+}
