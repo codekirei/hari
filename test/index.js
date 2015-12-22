@@ -19,12 +19,12 @@ import Hari from '../'
 //----------------------------------------------------------
 test('constructor', t => {
   const hari = new Hari()
-  t.is(hari.running, false, 'running')
-  t.is(hari.runs, 0, 'runs')
-  t.is(hari.start, void 0, 'start')
-  t.is(hari.now, void 0, 'now')
-  t.is(hari.command, void 0, 'command')
-  t.is(hari.args, void 0, 'args')
+  t.is(hari.running, false)
+  t.is(hari.runs, 0)
+  t.is(hari.start, void 0)
+  t.is(hari.now, void 0)
+  t.is(hari.command, void 0)
+  t.is(hari.args, void 0)
 })
 
 test('clear', t => {
@@ -46,7 +46,7 @@ test('convertHours', t => {
 test('debounce', t => {
   const hari = new Hari()
   const clock = sinon.useFakeTimers()
-  const clear = sinon.stub(hari, 'clear', () => new EventEmitter())
+  const clear = sinon.stub(hari, 'clear').returns(new EventEmitter())
   const run = sinon.stub(hari, 'run')
   hari.command = true
   hari.debounce()
@@ -54,6 +54,10 @@ test('debounce', t => {
   // tests
   t.true(hari.running, 'running')
   t.is(hari.runs, 1, 'runs')
+  t.true(clear.called)
+  t.false(run.called)
+  clear().emit('close')
+  t.true(run.called)
   clock.tick(50)
   t.false(hari.running, 'stopped running')
 
