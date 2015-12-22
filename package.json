@@ -24,8 +24,7 @@
   "dependencies": {
     "bluebird": "^3.1.1",
     "chokidar": "^1.4.1",
-    "clor": "^2.0.2",
-    "read-package-json": "^2.0.2"
+    "clor": "^2.0.2"
   },
   "devDependencies": {
     "ava": "^0.8.0",
