@@ -1,0 +1,8 @@
+{
+  "hari": {
+    "watch": [
+      "**/*.js"
+    ],
+    "run": "node -e 'console.log(`hello world`)"
+  }
+}

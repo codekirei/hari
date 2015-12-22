@@ -32,7 +32,9 @@
   },
   "devDependencies": {
     "ava": "^0.8.0",
-    "nyc": "^5.0.1"
+    "mock-fs": "^3.6.0",
+    "nyc": "^5.0.1",
+    "sinon": "^1.17.2"
   },
   "hari": {
     "run": "npm test",
