@@ -4,7 +4,8 @@
   "description": "automated script runner",
   "main": "index.js",
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "dev": "./bin/hari.js"
   },
   "bin": {
     "hari": "./bin/hari.js"
@@ -32,5 +33,12 @@
   "devDependencies": {
     "ava": "^0.8.0",
     "nyc": "^5.0.1"
+  },
+  "hari": {
+    "run": "npm test",
+    "watch": [
+      "index.js",
+      "test/*.js"
+    ]
   }
 }

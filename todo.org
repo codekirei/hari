@@ -2,6 +2,7 @@
 - [X] improve header box (round corners etc)
 - [ ] write tests
 - [X] docstrings
+- [ ] hide and show cursor
 - [ ] make example
 - [ ] travis + coveralls
 - [ ] publish on npm
