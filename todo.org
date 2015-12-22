@@ -1,6 +1,7 @@
-- [ ] add duration metric
-- [ ] improve header box (round corners etc)
+- [X] add duration metric
+- [X] improve header box (round corners etc)
 - [ ] write tests
+- [ ] docstrings
 - [ ] make example
 - [ ] travis + coveralls
 - [ ] publish on npm

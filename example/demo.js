@@ -1,3 +1,3 @@
 'use strict'
 
-console.log('test124')
+console.log('test')
