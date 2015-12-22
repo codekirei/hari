@@ -6,6 +6,9 @@
   "scripts": {
     "test": "ava"
   },
+  "bin": {
+    "hari": "./bin/hari.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/codekirei/hari.git"

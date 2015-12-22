@@ -2,12 +2,15 @@
   "name": "hari-example",
   "private": true,
   "scripts": {
-    "hari": "node ../"
+    "hari": "hari"
   },
   "hari": {
     "run": "node ./demo.js",
     "watch": [
       "./demo.js"
     ]
+  },
+  "dependencies": {
+    "hari": "*"
   }
 }
