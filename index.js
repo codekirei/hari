@@ -41,7 +41,7 @@ module.exports = class Hari {
     @returns {Number} converted hours
    */
   convertHours(num) {
-    return num > 12 ? num - 12 : num
+    return num >= 12 ? num - 12 : num
   }
 
   /**

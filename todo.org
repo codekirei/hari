@@ -1,10 +1,10 @@
 - [X] add duration metric
 - [X] improve header box (round corners etc)
-- [ ] write tests
+- [-] write tests
   - [ ] move package.json into mock-fs
   - [ ] clear
-  - [ ] convertHours
-  - [ ] debounce
+  - [X] convertHours
+  - [X] debounce
   - [ ] duration
   - [ ] header
   - [ ] init
