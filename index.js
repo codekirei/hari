@@ -4,7 +4,7 @@
 // modules
 //----------------------------------------------------------
 // node
-const spawn = require('child_process').spawn
+const proc = require('child_process')
 const fs = require('fs')
 
 // npm
@@ -31,7 +31,7 @@ module.exports = class Hari {
     @returns {Object} child_process object
    */
   clear() {
-    return spawn('clear', {stdio: 'inherit'})
+    return proc.spawn('clear', {stdio: 'inherit'})
   }
 
   /**
@@ -186,8 +186,8 @@ module.exports = class Hari {
     this.now = new Date()
     this.header()
     this.args
-      ? spawn(this.command, this.args, {stdio: 'inherit'})
-      : spawn(this.command, {stdio: 'inherit'})
+      ? proc.spawn(this.command, this.args, {stdio: 'inherit'})
+      : proc.spawn(this.command, {stdio: 'inherit'})
   }
 
   /**

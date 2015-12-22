@@ -2,7 +2,7 @@
 - [X] improve header box (round corners etc)
 - [-] write tests
   - [ ] move package.json into mock-fs
-  - [ ] clear
+  - [X] clear
   - [X] convertHours
   - [X] debounce
   - [X] duration

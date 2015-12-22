@@ -5,7 +5,7 @@
 //----------------------------------------------------------
 // node
 import {EventEmitter} from 'events'
-import childProcess from 'child_process'
+import proc from 'child_process'
 
 // npm
 import sinon from 'sinon'
@@ -27,7 +27,13 @@ test('constructor', t => {
   t.is(hari.args, void 0, 'args')
 })
 
-test.skip('clear', t => {
+test('clear', t => {
+  const hari = new Hari()
+  const stub = sinon.stub(proc, 'spawn')
+  hari.clear()
+  t.true(stub.called)
+  t.true(stub.calledWith('clear'))
+  stub.restore()
 })
 
 test('convertHours', t => {
