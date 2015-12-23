@@ -51,18 +51,20 @@ test('debounce', t => {
   const clock = sinon.useFakeTimers()
   const clear = sinon.stub(hari, 'clear').returns(new EventEmitter())
   const run = sinon.stub(hari, 'run')
-  hari.command = true
-  hari.debounce()
 
   // tests
-  t.true(hari.running, 'running')
-  t.is(hari.runs, 1, 'runs')
+  hari.debounce()
+  t.is(hari.runs, 0)
+  hari.command = true
+  hari.debounce()
+  t.true(hari.running)
+  t.is(hari.runs, 1)
   t.true(clear.called)
   t.false(run.called)
   clear().emit('close')
   t.true(run.called)
   clock.tick(50)
-  t.false(hari.running, 'stopped running')
+  t.false(hari.running)
 
   // cleanup
   clock.restore()
@@ -153,9 +155,11 @@ test('padStrs', t => {
 
 test('parseCommand', t => {
   const hari = new Hari()
+  hari.parseCommand('./test')
+  t.is(hari.command, './test')
   hari.parseCommand('npm test -v')
-  t.is(hari.command, 'npm', 'command')
-  t.same(hari.args, ['test', '-v'], 'args')
+  t.is(hari.command, 'npm')
+  t.same(hari.args, ['test', '-v'])
 })
 
 test('parseMs', t => {

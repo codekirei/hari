@@ -4,8 +4,11 @@
   "description": "automated script runner",
   "main": "index.js",
   "scripts": {
+    "cover": "nyc ava",
+    "dev": "./bin/hari.js",
+    "md": "pm2 start pen",
     "test": "ava",
-    "dev": "./bin/hari.js"
+    "test-ci": "nyc --reporter=lcovonly ava"
   },
   "bin": {
     "hari": "./bin/hari.js"
