@@ -205,5 +205,17 @@ test('time', t => {
   clock.restore()
 })
 
-test.skip('watch', t => {
+test('watch', t => {
+  const hari = new Hari()
+  sinon.spy(chokidar, 'watch')
+  sinon.stub(hari, 'debounce')
+  const glob = ['./fixture']
+  hari.watch(glob)
+  t.true(chokidar.watch.called)
+  t.true(chokidar.watch.calledWith(glob))
+  t.false(hari.debounce.called)
+  proc.spawn('touch', glob).on('done', () =>
+    t.true(hari.debounce.called)
+  )
+  chokidar.watch.restore()
 })
