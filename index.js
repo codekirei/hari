@@ -80,12 +80,12 @@ module.exports = class Hari {
     const fill = '═'.repeat(len)
     const padded = this.padStrs(strs, len)
     console.log(chalk.blue(
-`╔═${fill}═╗
-║ ${padded[0]} ║
-║ ${padded[1]} ║
-║ ${padded[2]} ║
-╚═${fill}═╝`
-    ))
+      [ `╔═${fill}═╗`
+      , `║ ${padded[0]} ║`
+      , `║ ${padded[1]} ║`
+      , `║ ${padded[2]} ║`
+      , `╚═${fill}═╝`
+      ].join('\n')))
   }
 
   /**

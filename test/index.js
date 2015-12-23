@@ -10,7 +10,7 @@ import proc from 'child_process'
 // npm
 import sinon from 'sinon'
 import test from 'ava'
-import clor from 'clor'
+import chalk from 'chalk'
 
 // local
 import Hari from '../'
@@ -83,16 +83,36 @@ test('duration', t => {
   clock.restore()
 })
 
-test.skip('header', t => {
+test('header', t => {
   const hari = new Hari()
   const clock = sinon.useFakeTimers()
   hari.start = Date.parse(new Date())
   hari.now = new Date()
+  sinon.spy(hari, 'time')
+  sinon.spy(hari, 'duration')
+  sinon.spy(hari, 'longestStr')
+  sinon.spy(hari, 'padStrs')
   sinon.stub(console, 'log')
-  const spy = sinon.spy(clor, 'log')
   hari.header()
-  t.true(spy.called)
-  // t.true(logger.called)
+
+  // tests
+  t.true(hari.time.called)
+  t.true(hari.duration.called)
+  t.true(hari.longestStr.called)
+  t.true(hari.padStrs.called)
+  t.true(console.log.called)
+  t.true(console.log.calledWith(chalk.blue(
+    [ '╔════════════════════╗'
+    , '║ Last Run │ 4:00:00 ║'
+    , '║ Duration │ 0:00:00 ║'
+    , '║ Runs     │ 0       ║'
+    , '╚════════════════════╝'
+    ].join('\n')
+  )))
+
+  // cleanup
+  clock.restore()
+  console.log.restore()
 })
 
 test.skip('init', t => {

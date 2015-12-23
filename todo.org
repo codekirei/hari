@@ -1,6 +1,6 @@
 - [-] write tests
   - [ ] move package.json into mock-fs
-  - [ ] header
+  - [X] header
   - [ ] init
   - [ ] parseMs
   - [ ] readPkg
