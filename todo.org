@@ -1,12 +1,8 @@
 - [-] write tests
-  - [ ] move package.json into mock-fs
-  - [X] header
-  - [ ] init
-  - [ ] parseMs
-  - [ ] readPkg
-  - [ ] run
-  - [ ] time
   - [ ] watch
+  - [ ] move package.json into mock-fs
+    - [ ] init
+    - [ ] readPkg
 - [ ] hide and show cursor
 - [ ] make example
 - [ ] travis + coveralls

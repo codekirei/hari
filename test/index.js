@@ -11,6 +11,7 @@ import proc from 'child_process'
 import sinon from 'sinon'
 import test from 'ava'
 import chalk from 'chalk'
+import chokidar from 'chokidar'
 
 // local
 import Hari from '../'
@@ -30,11 +31,11 @@ test('constructor', t => {
 
 test('clear', t => {
   const hari = new Hari()
-  const stub = sinon.stub(proc, 'spawn')
+  sinon.stub(proc, 'spawn')
   hari.clear()
-  t.true(stub.called)
-  t.true(stub.calledWith('clear'))
-  stub.restore()
+  t.true(proc.spawn.called)
+  t.true(proc.spawn.calledWith('clear'))
+  proc.spawn.restore()
 })
 
 test('convertHours', t => {
@@ -138,7 +139,12 @@ test('parseCommand', t => {
   t.same(hari.args, ['test', '-v'], 'args')
 })
 
-test.skip('parseMs', t => {
+test('parseMs', t => {
+  const hari = new Hari()
+  t.is(hari.parseMs(1000), '0:00:01')
+  t.is(hari.parseMs(62500), '0:01:02')
+  t.is(hari.parseMs(3723000), '1:02:03')
+  t.is(hari.parseMs(36123000), '10:02:03')
 })
 
 test('prepTime', t => {
@@ -150,10 +156,53 @@ test('prepTime', t => {
 test.skip('readPkg', t => {
 })
 
-test.skip('run', t => {
+test('run', t => {
+  const clock = sinon.useFakeTimers()
+  const hari = new Hari()
+  sinon.stub(hari, 'header')
+  sinon.stub(proc, 'spawn')
+  hari.command = true
+  t.is(hari.now, void 0)
+
+  // args is undefined
+  hari.run()
+  t.is(Date.parse(hari.now), 0)
+  t.true(hari.header.called)
+  t.true(proc.spawn.calledOnce)
+  t.is(proc.spawn.firstCall.args.length, 2)
+
+  // args is defined
+  hari.args = true
+  hari.run()
+  t.true(proc.spawn.calledTwice)
+  t.is(proc.spawn.secondCall.args.length, 3)
+
+  // cleanup
+  clock.restore()
+  proc.spawn.restore()
 })
 
-test.skip('time', t => {
+test('time', t => {
+  const clock = sinon.useFakeTimers()
+  const hari = new Hari()
+  sinon.spy(hari, 'time')
+  sinon.spy(hari, 'convertHours')
+  sinon.spy(hari, 'prepTime')
+  hari.now = new Date()
+  sinon.spy(hari.now, 'getHours')
+  sinon.spy(hari.now, 'getMinutes')
+  sinon.spy(hari.now, 'getSeconds')
+
+  // tests
+  t.is(hari.time(), '4:00:00')
+  t.true(hari.convertHours.called)
+  t.true(hari.prepTime.calledTwice)
+  t.true(hari.now.getHours.called)
+  t.true(hari.now.getMinutes.called)
+  t.true(hari.now.getSeconds.called)
+
+  // cleanup
+  clock.restore()
 })
 
 test.skip('watch', t => {
