@@ -1,10 +1,12 @@
 - [-] write tests
+  - [ ] reorg tests for simplicity
   - [X] watch
-  - [-] move package.json into mock-fs
-    - [ ] init
+  - [X] move package.json into mock-fs
+    - [X] init
     - [X] readPkg
 - [ ] hide and show cursor
 - [ ] continually update duration with log-update?
 - [ ] make example
+- [ ] write readme
 - [ ] travis + coveralls
 - [ ] publish on npm

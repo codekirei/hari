@@ -94,10 +94,12 @@ module.exports = class Hari {
       2. Read package.json (for hari.run and hari.watch)
       3. Bind this.command and this.args with this.parseCommand
       4. Start watching globs with this.watch
+
+    @returns {Promise} promisified main loop
    */
   init() {
     this.start = Date.parse(new Date())
-    this.readPkg().then(pkg => {
+    return this.readPkg().then(pkg => {
       this.parseCommand(pkg.run)
       this.watch(pkg.watch)
     })

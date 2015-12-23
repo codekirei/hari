@@ -117,7 +117,25 @@ test('header', t => {
   console.log.restore()
 })
 
-test.skip('init', t => {
+test('init', async t => {
+  const clock = sinon.useFakeTimers()
+  const hari = new Hari()
+  const pkg =
+    { watch: ['**/*.js']
+    , run: 'npm test'
+    }
+  sinon.stub(hari, 'readPkg', () => Promise.resolve(pkg))
+  sinon.stub(hari, 'parseCommand')
+  sinon.stub(hari, 'watch')
+  t.is(hari.start, void 0)
+  await hari.init()
+  t.is(hari.start, 0)
+  t.true(hari.readPkg.called)
+  t.true(hari.parseCommand.called)
+  t.true(hari.parseCommand.calledWith(pkg.run))
+  t.true(hari.watch.called)
+  t.true(hari.watch.calledWith(pkg.watch))
+  clock.restore()
 })
 
 test('longestStr', t => {
