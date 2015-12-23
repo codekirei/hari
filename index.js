@@ -9,7 +9,7 @@ const fs = require('fs')
 
 // npm
 const chokidar = require('chokidar')
-const clor = require('clor')
+const chalk = require('chalk')
 const P = require('bluebird')
 
 //----------------------------------------------------------
@@ -79,12 +79,13 @@ module.exports = class Hari {
     const len = this.longestStr(strs)
     const fill = '═'.repeat(len)
     const padded = this.padStrs(strs, len)
-    clor
-      .blue(`╔═${fill}═╗`).line
-      .blue(`║ ${padded[0]} ║`).line
-      .blue(`║ ${padded[1]} ║`).line
-      .blue(`║ ${padded[2]} ║`).line
-      .blue(`╚═${fill}═╝ `).log()
+    console.log(chalk.blue(
+`╔═${fill}═╗
+║ ${padded[0]} ║
+║ ${padded[1]} ║
+║ ${padded[2]} ║
+╚═${fill}═╝`
+    ))
   }
 
   /**

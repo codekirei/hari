@@ -10,6 +10,7 @@ import proc from 'child_process'
 // npm
 import sinon from 'sinon'
 import test from 'ava'
+import clor from 'clor'
 
 // local
 import Hari from '../'
@@ -66,8 +67,8 @@ test('debounce', t => {
 })
 
 test('duration', t => {
-  const clock = sinon.useFakeTimers()
   const hari = new Hari()
+  const clock = sinon.useFakeTimers()
   const stub = sinon.stub(hari, 'parseMs')
   hari.start = Date.parse(new Date())
   hari.now = new Date()
@@ -82,7 +83,16 @@ test('duration', t => {
   clock.restore()
 })
 
-test('header', t => {
+test.skip('header', t => {
+  const hari = new Hari()
+  const clock = sinon.useFakeTimers()
+  hari.start = Date.parse(new Date())
+  hari.now = new Date()
+  sinon.stub(console, 'log')
+  const spy = sinon.spy(clor, 'log')
+  hari.header()
+  t.true(spy.called)
+  // t.true(logger.called)
 })
 
 test.skip('init', t => {
