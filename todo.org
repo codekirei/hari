@@ -4,6 +4,7 @@
     - [ ] init
     - [ ] readPkg
 - [ ] hide and show cursor
+- [ ] continually update duration with log-update?
 - [ ] make example
 - [ ] travis + coveralls
 - [ ] publish on npm
