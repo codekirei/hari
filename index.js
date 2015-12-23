@@ -98,8 +98,8 @@ module.exports = class Hari {
   init() {
     this.start = Date.parse(new Date())
     this.readPkg().then(pkg => {
-      this.parseCommand(pkg.hari.run)
-      this.watch(pkg.hari.watch)
+      this.parseCommand(pkg.run)
+      this.watch(pkg.watch)
     })
   }
 
@@ -177,7 +177,7 @@ module.exports = class Hari {
    */
   readPkg() {
     return P.promisify(fs.readFile)('./package.json', 'utf8')
-      .then(json => JSON.parse(json))
+      .then(json => JSON.parse(json).hari)
   }
 
   /**

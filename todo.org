@@ -1,8 +1,8 @@
 - [-] write tests
-  - [ ] watch
-  - [ ] move package.json into mock-fs
+  - [X] watch
+  - [-] move package.json into mock-fs
     - [ ] init
-    - [ ] readPkg
+    - [X] readPkg
 - [ ] hide and show cursor
 - [ ] continually update duration with log-update?
 - [ ] make example

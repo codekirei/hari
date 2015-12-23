@@ -12,6 +12,7 @@ import sinon from 'sinon'
 import test from 'ava'
 import chalk from 'chalk'
 import chokidar from 'chokidar'
+import mockfs from 'mock-fs'
 
 // local
 import Hari from '../'
@@ -153,7 +154,23 @@ test('prepTime', t => {
   t.is(hari.prepTime(3), '03', 'prepended')
 })
 
-test.skip('readPkg', t => {
+test('readPkg', async t => {
+  mockfs({ 'package.json':
+`{
+  "hari": {
+    "watch": [
+      "**/*.js"
+    ],
+    "run": "npm test"
+  }
+}`
+  })
+  const hari = new Hari()
+  t.same(
+    await hari.readPkg()
+    , { watch: [ '**/*.js' ], run: 'npm test' }
+  )
+  mockfs.restore()
 })
 
 test('run', t => {
@@ -164,14 +181,14 @@ test('run', t => {
   hari.command = true
   t.is(hari.now, void 0)
 
-  // args is undefined
+  // hari.args is undefined
   hari.run()
   t.is(Date.parse(hari.now), 0)
   t.true(hari.header.called)
   t.true(proc.spawn.calledOnce)
   t.is(proc.spawn.firstCall.args.length, 2)
 
-  // args is defined
+  // hari.args is defined
   hari.args = true
   hari.run()
   t.true(proc.spawn.calledTwice)
