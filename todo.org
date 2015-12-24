@@ -1,7 +1,12 @@
-- [ ] simplify parseMs
-- [ ] reorg tests for simplicity
 - [ ] hide and show cursor
 - [ ] continually update duration with log-update?
+
+- [ ] simplify parseMs
+- [ ] run -> main
+- [ ] parseCommand -> utils
+- [ ] readPkg -> utils
+- [ ] time -> utils
+- [ ] watch -> utils
 
 - [ ] make example
 - [ ] write readme
