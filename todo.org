@@ -1,11 +1,7 @@
-- [-] write tests
-  - [ ] reorg tests for simplicity
-  - [X] watch
-  - [X] move package.json into mock-fs
-    - [X] init
-    - [X] readPkg
+- [ ] reorg tests for simplicity
 - [ ] hide and show cursor
 - [ ] continually update duration with log-update?
+
 - [ ] make example
 - [ ] write readme
 - [ ] travis + coveralls
