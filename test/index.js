@@ -10,7 +10,7 @@ import proc from 'child_process'
 // npm
 import sinon from 'sinon'
 import test from 'ava'
-import chalk from 'chalk'
+import ansi from 'ansi-styles'
 import chokidar from 'chokidar'
 import mockfs from 'mock-fs'
 
@@ -83,11 +83,13 @@ test('header', t => {
   t.true(utils.padStrs.called)
   t.true(console.log.called)
   const header = console.log.args[0][0].split('\n')
-  t.is(header[0], '\u001b[34m╔════════════════════╗')
-  t.is(header[1],           '║ Last Run │ 4:00:00 ║')
-  t.is(header[2],           '║ Duration │ 0:00:00 ║')
-  t.is(header[3],           '║ Runs     │ 0       ║')
-  t.is(header[4],           '╚════════════════════╝\u001b[39m')
+  const open = ansi.blue.open
+  const close = ansi.blue.close
+  t.is(header[0], `${open}╔════════════════════╗`)
+  t.is(header[1],        '║ Last Run │ 4:00:00 ║')
+  t.is(header[2],        '║ Duration │ 0:00:00 ║')
+  t.is(header[3],        '║ Runs     │ 0       ║')
+  t.is(header[4],        `╚════════════════════╝${close}`)
 
   // cleanup
   clock.restore()

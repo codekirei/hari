@@ -8,8 +8,8 @@ const proc = require('child_process')
 const fs = require('fs')
 
 // npm
+const ansi = require('ansi-styles')
 const chokidar = require('chokidar')
-const chalk = require('chalk')
 const P = require('bluebird')
 
 // local
@@ -63,13 +63,16 @@ module.exports = class Hari {
     const len = util.longestStr(strs)
     const fill = '═'.repeat(len)
     const padded = util.padStrs(strs, len)
-    console.log(chalk.blue(
-      [ `╔═${fill}═╗`
+    const open = ansi.blue.open
+    const close = ansi.blue.close
+    console.log(
+      [ `${open}╔═${fill}═╗`
       , `║ ${padded[0]} ║`
       , `║ ${padded[1]} ║`
       , `║ ${padded[2]} ║`
-      , `╚═${fill}═╝`
-      ].join('\n')))
+      , `╚═${fill}═╝${close}`
+      ].join('\n')
+    )
   }
 
   /**
