@@ -43,7 +43,8 @@
     "run": "npm test -s",
     "watch": [
       "index.js",
-      "test/*.js"
+      "test/*.js",
+      "lib/*.js"
     ]
   }
 }

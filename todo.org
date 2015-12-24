@@ -1,3 +1,4 @@
+- [ ] simplify parseMs
 - [ ] reorg tests for simplicity
 - [ ] hide and show cursor
 - [ ] continually update duration with log-update?

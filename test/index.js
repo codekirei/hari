@@ -16,6 +16,7 @@ import mockfs from 'mock-fs'
 
 // local
 import Hari from '../'
+import utils from '../lib/utils'
 
 //----------------------------------------------------------
 // tests
@@ -63,49 +64,30 @@ test('debounce', t => {
   clock.restore()
 })
 
-test('duration', t => {
-  const hari = new Hari()
-  const clock = sinon.useFakeTimers()
-  const stub = sinon.stub(hari, 'parseMs')
-  hari.start = Date.parse(new Date())
-  hari.now = new Date()
-  hari.now.setSeconds(3)
-  hari.duration()
-
-  // tests
-  t.true(stub.called, 'call parseMs')
-  t.true(stub.calledWith(3000), 'call parseMs with correct value')
-
-  // cleanup
-  clock.restore()
-})
-
 test('header', t => {
   const hari = new Hari()
   const clock = sinon.useFakeTimers()
   hari.start = Date.parse(new Date())
   hari.now = new Date()
   sinon.spy(hari, 'time')
-  sinon.spy(hari, 'duration')
-  sinon.spy(hari, 'longestStr')
-  sinon.spy(hari, 'padStrs')
+  sinon.spy(utils, 'duration')
+  sinon.spy(utils, 'longestStr')
+  sinon.spy(utils, 'padStrs')
   sinon.stub(console, 'log')
   hari.header()
 
   // tests
   t.true(hari.time.called)
-  t.true(hari.duration.called)
-  t.true(hari.longestStr.called)
-  t.true(hari.padStrs.called)
+  t.true(utils.duration.called)
+  t.true(utils.longestStr.called)
+  t.true(utils.padStrs.called)
   t.true(console.log.called)
-  t.true(console.log.calledWith(chalk.blue(
-    [ '╔════════════════════╗'
-    , '║ Last Run │ 4:00:00 ║'
-    , '║ Duration │ 0:00:00 ║'
-    , '║ Runs     │ 0       ║'
-    , '╚════════════════════╝'
-    ].join('\n')
-  )))
+  const header = console.log.args[0][0].split('\n')
+  t.is(header[0], '\u001b[34m╔════════════════════╗')
+  t.is(header[1],           '║ Last Run │ 4:00:00 ║')
+  t.is(header[2],           '║ Duration │ 0:00:00 ║')
+  t.is(header[3],           '║ Runs     │ 0       ║')
+  t.is(header[4],           '╚════════════════════╝\u001b[39m')
 
   // cleanup
   clock.restore()
@@ -191,8 +173,8 @@ test('time', t => {
   const clock = sinon.useFakeTimers()
   const hari = new Hari()
   sinon.spy(hari, 'time')
-  sinon.spy(hari, 'convertHours')
-  sinon.spy(hari, 'prepTime')
+  sinon.spy(utils, 'convertHours')
+  sinon.spy(utils, 'prepTime')
   hari.now = new Date()
   sinon.spy(hari.now, 'getHours')
   sinon.spy(hari.now, 'getMinutes')
@@ -200,8 +182,8 @@ test('time', t => {
 
   // tests
   t.is(hari.time(), '4:00:00')
-  t.true(hari.convertHours.called)
-  t.true(hari.prepTime.calledTwice)
+  t.true(utils.convertHours.called)
+  t.true(utils.prepTime.calledTwice)
   t.true(hari.now.getHours.called)
   t.true(hari.now.getMinutes.called)
   t.true(hari.now.getSeconds.called)

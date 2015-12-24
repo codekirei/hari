@@ -12,6 +12,9 @@ const chokidar = require('chokidar')
 const chalk = require('chalk')
 const P = require('bluebird')
 
+// local
+const util = require('./lib/utils')
+
 //----------------------------------------------------------
 // logic
 //----------------------------------------------------------
@@ -35,18 +38,8 @@ module.exports = class Hari {
   }
 
   /**
-    Convert 24 hour notation to 12 hour notation.
-
-    @param {Number} num - hours to convert
-    @returns {Number} converted hours
-   */
-  convertHours(num) {
-    return num >= 12 ? num - 12 : num
-  }
-
-  /**
     Run main loop (this.clear -> this.run). Prevents
-      re-running for multiple near-simultaneous changes.
+      re-running after multiple near-simultaneous changes.
    */
   debounce() {
     if (!this.running && this.command) {
@@ -58,27 +51,18 @@ module.exports = class Hari {
   }
 
   /**
-    Count and parse milliseconds passed since this.init().
-
-    @returns {String} H:M:S passed
-   */
-  duration() {
-    return this.parseMs(Date.parse(this.now) - this.start)
-  }
-
-  /**
     Log colorized header that displays time of last run, duration script
     has been running, and amount of times script has run.
    */
   header() {
     const strs =
       [ `Last Run │ ${this.time()}`
-      , `Duration │ ${this.duration()}`
+      , `Duration │ ${util.duration(this.start, Date.parse(this.now))}`
       , `Runs     │ ${this.runs}`
       ]
-    const len = this.longestStr(strs)
+    const len = util.longestStr(strs)
     const fill = '═'.repeat(len)
-    const padded = this.padStrs(strs, len)
+    const padded = util.padStrs(strs, len)
     console.log(chalk.blue(
       [ `╔═${fill}═╗`
       , `║ ${padded[0]} ║`
@@ -106,34 +90,6 @@ module.exports = class Hari {
   }
 
   /**
-    Find character count of longest string in array.
-
-    @param {String[]} ar - array of strings
-    @returns {Number} number of characters in longest string
-   */
-  longestStr(ar) {
-    return ar.reduce((prev, cur) => {
-      const len = cur.length
-      return len > prev ? len : prev
-    }, 0)
-  }
-
-  /**
-    Append spaces to strings as necessary so all strings are same length.
-
-    @param {String[]} ar - array of strings
-    @param {Number} max - number of characters in longest string in ar
-    @returns {String[]} array of padded strings
-   */
-  padStrs(ar, max) {
-    return ar.map(str => {
-      const len = str.length
-      if (len < max) str += ' '.repeat(max - len)
-      return str
-    })
-  }
-
-  /**
     Split a command into this.command and this.args for running with
       child_process.spawn().
 
@@ -143,33 +99,6 @@ module.exports = class Hari {
     const ar = command.split(' ')
     this.command = ar.shift()
     if (ar.length) this.args = ar
-  }
-
-  /**
-    Convert milliseconds to hours, minutes, and seconds.
-
-    @param {Number} ms - a number of milliseconds
-    @returns {String} H:M:S
-   */
-  parseMs(ms) {
-    let rem = ms
-    const h = Math.floor(rem / 3600000)
-    rem %= 3600000
-    const m = this.prepTime(Math.floor(rem / 60000))
-    rem %= 60000
-    const s = this.prepTime(Math.floor(rem / 1000))
-    return [h, m, s].join(':')
-  }
-
-  /**
-    Prepend a leading 0 to single-digit times.
-
-    @param {Number} num - number to potentially prepend
-    @returns {String} number converted to string and prepended if necessary
-   */
-  prepTime(num) {
-    const str = num.toString()
-    return str.length === 1 ? `0${str}` : str
   }
 
   /**
@@ -199,9 +128,9 @@ module.exports = class Hari {
     @returns {String} H:M:S
    */
   time() {
-    const h = this.convertHours(this.now.getHours())
-    const m = this.prepTime(this.now.getMinutes())
-    const s = this.prepTime(this.now.getSeconds())
+    const h = util.convertHours(this.now.getHours())
+    const m = util.prepTime(this.now.getMinutes().toString())
+    const s = util.prepTime(this.now.getSeconds().toString())
     return [h, m, s].join(':')
   }
 
