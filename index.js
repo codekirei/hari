@@ -4,12 +4,10 @@
 // modules
 //----------------------------------------------------------
 // node
-const fs = require('fs')
 const proc = require('child_process')
 
 // npm
 const chokidar = require('chokidar')
-const P = require('bluebird')
 
 // local
 const util = require('./lib/utils')
@@ -58,20 +56,10 @@ module.exports = class Hari {
     const date = new Date()
     this.startTime = util.extractTime(date)
     this.timestamp = Date.parse(date)
-    return this.readPkg().then(pkg => {
+    return util.readJson('./package.json').then(pkg => {
       this.cmd = util.bindCmd(pkg.run)
       return this.watch(pkg.watch)
     })
-  }
-
-  /**
-    Read and parse package.json.
-
-    @returns {Promise} promise that reads and parses package.json
-   */
-  readPkg() {
-    return P.promisify(fs.readFile)('./package.json', 'utf8')
-      .then(json => JSON.parse(json).hari)
   }
 
   /**
