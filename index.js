@@ -4,11 +4,10 @@
 // modules
 //----------------------------------------------------------
 // node
-const proc = require('child_process')
 const fs = require('fs')
+const proc = require('child_process')
 
 // npm
-const ansi = require('ansi-styles')
 const chokidar = require('chokidar')
 const P = require('bluebird')
 
@@ -38,38 +37,12 @@ module.exports = class Hari {
       re-running after multiple near-simultaneous changes.
    */
   debounce() {
-    if (!this.running && this.command) {
+    if (!this.running && this.cmd) {
       this.running = true
       this.runs += 1
       this.clear().on('close', this.run.bind(this))
       setTimeout(() => this.running = false, 50)
     }
-  }
-
-  /**
-    Log colorized header that displays time of last run, duration script
-    has been running, and amount of times script has run.
-   */
-  header() {
-    const now = new Date()
-    const strs =
-      [ `First Run │ ${this.startTime}`
-      , `Last Run  │ ${util.extractTime(now)}`
-      , `Elapsed   | ${util.duration(this.startTimestamp, now)}`
-      , `Runs      │ ${this.runs}`
-      ]
-    const len = util.longestStr(strs)
-    const fill = '═'.repeat(len)
-    console.log(
-      strs
-        .map(util.pad(len))
-        .map(util.wrap)
-        .reverse()
-        .concat(`${ansi.blue.open}╔═${fill}═╗`)
-        .reverse()
-        .concat(`╚═${fill}═╝${ansi.blue.close}`)
-        .join('\n')
-    )
   }
 
   /**
@@ -86,21 +59,14 @@ module.exports = class Hari {
     this.startTime = util.extractTime(date)
     this.timestamp = Date.parse(date)
     return this.readPkg().then(pkg => {
-      this.parseCommand(pkg.run)
-      this.watch(pkg.watch)
+      // const cmd = util.prepCmd(pkg.run)
+      // split this into spawn cmd util
+      // this.cmd = () => cmd[1]
+      //   ? proc.spawn(cmd[0], cmd[1], {stdio: 'inherit'})
+      //   : proc.spawn(cmd[0], {stdio: 'inherit'})
+      this.cmd = util.bindCmd(pkg.run)
+      return this.watch(pkg.watch)
     })
-  }
-
-  /**
-    Split a command into this.command and this.args for running with
-      child_process.spawn().
-
-    @param {String} command - command to run
-   */
-  parseCommand(command) {
-    const ar = command.split(' ')
-    this.command = ar.shift()
-    if (ar.length) this.args = ar
   }
 
   /**
@@ -117,10 +83,8 @@ module.exports = class Hari {
     Print header and spawn this.command with this.args.
    */
   run() {
-    this.header()
-    this.args
-      ? proc.spawn(this.command, this.args, {stdio: 'inherit'})
-      : proc.spawn(this.command, {stdio: 'inherit'})
+    console.log(util.header(this.startTime, this.timestamp, this.runs))
+    this.cmd()
   }
 
   /**

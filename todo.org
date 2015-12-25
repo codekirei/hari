@@ -1,13 +1,12 @@
 - [ ] parseCommand -> utils
 - [ ] readPkg -> utils
-- [X] time -> utils
 - [ ] watch -> utils
 - [ ] duration -> timeDiff
 
 - [ ] hide and show cursor
 
 - [ ] simplify parseMs
-- [ ] run args test -> init for efficiency
+- [X] run args test -> init for efficiency
 
 - [ ] make example
 - [ ] write readme
