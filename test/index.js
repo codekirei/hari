@@ -26,7 +26,6 @@ test('constructor', t => {
   t.is(hari.running, false)
   t.is(hari.runs, 0)
   t.is(hari.start, void 0)
-  t.is(hari.now, void 0)
   t.is(hari.command, void 0)
   t.is(hari.args, void 0)
 })
@@ -151,11 +150,9 @@ test('run', t => {
   sinon.stub(hari, 'header')
   sinon.stub(proc, 'spawn')
   hari.command = true
-  t.is(hari.now, void 0)
 
   // hari.args is undefined
   hari.run()
-  t.is(Date.parse(hari.now), 0)
   t.true(hari.header.called)
   t.true(proc.spawn.calledOnce)
   t.is(proc.spawn.firstCall.args.length, 2)

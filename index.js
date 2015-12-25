@@ -22,10 +22,6 @@ module.exports = class Hari {
   constructor() {
     this.running = false
     this.runs = 0
-    this.start = void 0
-    this.now = void 0
-    this.command = void 0
-    this.args = void 0
   }
 
   /**
@@ -57,9 +53,9 @@ module.exports = class Hari {
   header() {
     const now = new Date()
     const strs =
-      [ `First Run │ ${this.formatTime(this.start)}`
-      , `Last Run  │ ${this.formatTime(now)}`
-      , `Elapsed   | ${util.duration(this.start, now)}`
+      [ `First Run │ ${this.startTime}`
+      , `Last Run  │ ${util.extractTime(now)}`
+      , `Elapsed   | ${util.duration(this.startTimestamp, now)}`
       , `Runs      │ ${this.runs}`
       ]
     const len = util.longestStr(strs)
@@ -86,7 +82,9 @@ module.exports = class Hari {
     @returns {Promise} promisified main loop
    */
   init() {
-    this.start = new Date()
+    const date = new Date()
+    this.startTime = util.extractTime(date)
+    this.timestamp = Date.parse(date)
     return this.readPkg().then(pkg => {
       this.parseCommand(pkg.run)
       this.watch(pkg.watch)
@@ -119,19 +117,10 @@ module.exports = class Hari {
     Print header and spawn this.command with this.args.
    */
   run() {
-    this.now = new Date()
     this.header()
     this.args
       ? proc.spawn(this.command, this.args, {stdio: 'inherit'})
       : proc.spawn(this.command, {stdio: 'inherit'})
-  }
-
-  // TODO jsdoc
-  formatTime(time) {
-    const h = util.convertHours(time.getHours())
-    const m = util.prepTime(time.getMinutes().toString())
-    const s = util.prepTime(time.getSeconds().toString())
-    return [h, m, s].join(':')
   }
 
   /**
