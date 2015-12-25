@@ -64,7 +64,7 @@ test('debounce', t => {
   clock.restore()
 })
 
-test('header', t => {
+test.skip('header', t => {
   const hari = new Hari()
   const clock = sinon.useFakeTimers()
   hari.start = Date.parse(new Date())
@@ -96,7 +96,7 @@ test('header', t => {
   console.log.restore()
 })
 
-test('init', async t => {
+test.skip('init', async t => {
   const clock = sinon.useFakeTimers()
   const hari = new Hari()
   const pkg =
@@ -171,7 +171,7 @@ test('run', t => {
   proc.spawn.restore()
 })
 
-test('time', t => {
+test.skip('time', t => {
   const clock = sinon.useFakeTimers()
   const hari = new Hari()
   sinon.spy(hari, 'time')

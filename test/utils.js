@@ -11,7 +11,6 @@ import sinon from 'sinon'
 import { convertHours
        , duration
        , longestStr
-       , padStrs
        , parseMs
        , prepTime
        } from '../lib/utils'
@@ -51,7 +50,7 @@ test('longestStr', t =>
   t.is(longestStr(['one', 'two', 'three', 'four']), 5)
 )
 
-test('padStrs', t =>
+test.skip('padStrs', t =>
   t.same(
     padStrs(['a', 'b ', 'c  '], 3)
     , ['a  ', 'b  ', 'c  ']

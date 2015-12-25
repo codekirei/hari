@@ -1,5 +1,4 @@
 - [ ] hide and show cursor
-- [ ] continually update duration with log-update?
 
 - [ ] simplify parseMs
 - [ ] run -> main

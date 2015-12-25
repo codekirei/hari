@@ -55,23 +55,24 @@ module.exports = class Hari {
     has been running, and amount of times script has run.
    */
   header() {
+    const now = new Date()
     const strs =
-      [ `Last Run │ ${this.time()}`
-      , `Duration │ ${util.duration(this.start, Date.parse(this.now))}`
-      , `Runs     │ ${this.runs}`
+      [ `First Run │ ${this.formatTime(this.start)}`
+      , `Last Run  │ ${this.formatTime(now)}`
+      , `Elapsed   | ${util.duration(this.start, now)}`
+      , `Runs      │ ${this.runs}`
       ]
     const len = util.longestStr(strs)
     const fill = '═'.repeat(len)
-    const padded = util.padStrs(strs, len)
-    const open = ansi.blue.open
-    const close = ansi.blue.close
     console.log(
-      [ `${open}╔═${fill}═╗`
-      , `║ ${padded[0]} ║`
-      , `║ ${padded[1]} ║`
-      , `║ ${padded[2]} ║`
-      , `╚═${fill}═╝${close}`
-      ].join('\n')
+      strs
+        .map(util.pad(len))
+        .map(util.wrap)
+        .reverse()
+        .concat(`${ansi.blue.open}╔═${fill}═╗`)
+        .reverse()
+        .concat(`╚═${fill}═╝${ansi.blue.close}`)
+        .join('\n')
     )
   }
 
@@ -85,7 +86,7 @@ module.exports = class Hari {
     @returns {Promise} promisified main loop
    */
   init() {
-    this.start = Date.parse(new Date())
+    this.start = new Date()
     return this.readPkg().then(pkg => {
       this.parseCommand(pkg.run)
       this.watch(pkg.watch)
@@ -125,15 +126,11 @@ module.exports = class Hari {
       : proc.spawn(this.command, {stdio: 'inherit'})
   }
 
-  /**
-    Format new Date() (this.now) to H:M:S.
-
-    @returns {String} H:M:S
-   */
-  time() {
-    const h = util.convertHours(this.now.getHours())
-    const m = util.prepTime(this.now.getMinutes().toString())
-    const s = util.prepTime(this.now.getSeconds().toString())
+  // TODO jsdoc
+  formatTime(time) {
+    const h = util.convertHours(time.getHours())
+    const m = util.prepTime(time.getMinutes().toString())
+    const s = util.prepTime(time.getSeconds().toString())
     return [h, m, s].join(':')
   }
 
