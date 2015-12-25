@@ -59,11 +59,6 @@ module.exports = class Hari {
     this.startTime = util.extractTime(date)
     this.timestamp = Date.parse(date)
     return this.readPkg().then(pkg => {
-      // const cmd = util.prepCmd(pkg.run)
-      // split this into spawn cmd util
-      // this.cmd = () => cmd[1]
-      //   ? proc.spawn(cmd[0], cmd[1], {stdio: 'inherit'})
-      //   : proc.spawn(cmd[0], {stdio: 'inherit'})
       this.cmd = util.bindCmd(pkg.run)
       return this.watch(pkg.watch)
     })

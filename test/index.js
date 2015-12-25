@@ -39,7 +39,7 @@ test('clear', t => {
   proc.spawn.restore()
 })
 
-test('debounce', t => {
+test.skip('debounce', t => {
   const hari = new Hari()
   const clock = sinon.useFakeTimers()
   const clear = sinon.stub(hari, 'clear').returns(new EventEmitter())
@@ -116,7 +116,7 @@ test.skip('init', async t => {
   clock.restore()
 })
 
-test('parseCommand', t => {
+test.skip('parseCommand', t => {
   const hari = new Hari()
   hari.parseCommand('./test')
   t.is(hari.command, './test')
@@ -144,7 +144,7 @@ test('readPkg', async t => {
   mockfs.restore()
 })
 
-test('run', t => {
+test.skip('run', t => {
   const clock = sinon.useFakeTimers()
   const hari = new Hari()
   sinon.stub(hari, 'header')
