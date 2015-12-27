@@ -125,7 +125,7 @@ test.skip('parseCommand', t => {
   t.same(hari.args, ['test', '-v'])
 })
 
-test('readPkg', async t => {
+test.skip('readPkg', async t => {
   mockfs({ 'package.json':
 `{
   "hari": {
@@ -191,7 +191,7 @@ test.skip('time', t => {
   clock.restore()
 })
 
-test('watch', t => {
+test.skip('watch', t => {
   const hari = new Hari()
   sinon.spy(chokidar, 'watch')
   sinon.stub(hari, 'debounce')

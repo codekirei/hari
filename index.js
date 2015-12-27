@@ -6,9 +6,6 @@
 // node
 const proc = require('child_process')
 
-// npm
-const chokidar = require('chokidar')
-
 // local
 const util = require('./lib/utils')
 
@@ -58,7 +55,8 @@ module.exports = class Hari {
     this.timestamp = Date.parse(date)
     return util.readJson('./package.json').then(pkg => {
       this.cmd = util.bindCmd(pkg.run)
-      return this.watch(pkg.watch)
+      return util.watch(pkg.watch, this.debounce, this)
+      // return this.watch(pkg.watch)
     })
   }
 
@@ -70,13 +68,13 @@ module.exports = class Hari {
     this.cmd()
   }
 
-  /**
-    Watch globs with chokidar and run this.debounce on changes.
+  // /**
+  //   Watch globs with chokidar and run this.debounce on changes.
 
-    @param {String[]} globs - array of globs to watch
-    @returns {Object} chokidar FSWatcher object
-   */
-  watch(globs) {
-    return chokidar.watch(globs).on('all', this.debounce.bind(this))
-  }
+  //   @param {String[]} globs - array of globs to watch
+  //   @returns {Object} chokidar FSWatcher object
+  //  */
+  // watch(globs) {
+  //   return chokidar.watch(globs).on('all', this.debounce.bind(this))
+  // }
 }

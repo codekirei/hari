@@ -1,9 +1,7 @@
-- [ ] parseCommand -> utils
-- [ ] readPkg -> utils
-- [ ] watch -> utils
 - [ ] duration -> timeDiff
 
 - [ ] hide and show cursor
+- [ ] decide what to do about docstrings
 
 - [ ] simplify parseMs
 - [X] run args test -> init for efficiency
