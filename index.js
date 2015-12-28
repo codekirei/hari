@@ -56,7 +56,6 @@ module.exports = class Hari {
     return util.readJson('./package.json').then(pkg => {
       this.cmd = util.bindCmd(pkg.run)
       return util.watch(pkg.watch, this.debounce, this)
-      // return this.watch(pkg.watch)
     })
   }
 
@@ -67,14 +66,4 @@ module.exports = class Hari {
     console.log(util.header(this.startTime, this.timestamp, this.runs))
     this.cmd()
   }
-
-  // /**
-  //   Watch globs with chokidar and run this.debounce on changes.
-
-  //   @param {String[]} globs - array of globs to watch
-  //   @returns {Object} chokidar FSWatcher object
-  //  */
-  // watch(globs) {
-  //   return chokidar.watch(globs).on('all', this.debounce.bind(this))
-  // }
 }
