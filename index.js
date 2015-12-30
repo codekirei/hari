@@ -4,7 +4,7 @@
 // modules
 //----------------------------------------------------------
 // node
-const proc = require('child_process')
+const process = require('child_process')
 
 // local
 const util = require('./lib/utils')
@@ -24,7 +24,7 @@ module.exports = class Hari {
     @returns {Object} child_process object
    */
   clear() {
-    return proc.spawn('clear', {stdio: 'inherit'})
+    return process.spawn('clear', {stdio: 'inherit'})
   }
 
   /**

@@ -1,7 +1,5 @@
-- [ ] duration -> timeDiff
-
 - [ ] hide and show cursor
-- [ ] decide what to do about docstrings
+- [ ] finish docstrings
 
 - [ ] simplify parseMs
 - [X] run args test -> init for efficiency

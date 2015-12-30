@@ -23,7 +23,7 @@ test('convertHours', t => {
   t.is(convertHours(7), 7)
 })
 
-test('duration', t => {
+test.skip('duration', t => {
   const clock = sinon.useFakeTimers()
   const from = Date.parse(new Date()) // 0
   let to
