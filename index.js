@@ -54,8 +54,8 @@ module.exports = class Hari {
     this.startTime = util.extractTime(date)
     this.timestamp = Date.parse(date)
     return util.readJson('./package.json').then(pkg => {
-      this.cmd = util.bindCmd(pkg.run)
-      return util.watch(pkg.watch, this.debounce, this)
+      this.cmd = util.bindCmd(pkg.hari.run)
+      return util.watch(pkg.hari.watch, this.debounce, this)
     })
   }
 

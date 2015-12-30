@@ -1,8 +1,8 @@
-- [ ] hide and show cursor
-- [ ] finish docstrings
-
 - [ ] simplify parseMs
-- [X] run args test -> init for efficiency
+- [ ] hide and show cursor
+
+- [ ] finish docstrings
+- [ ] update tests
 
 - [ ] make example
 - [ ] write readme
