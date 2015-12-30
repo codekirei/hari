@@ -1,3 +1,4 @@
+- [ ] wrap init method into constructor
 - [ ] simplify parseMs
 - [ ] hide and show cursor
 
@@ -8,3 +9,8 @@
 - [ ] write readme
 - [ ] travis + coveralls
 - [ ] publish on npm
+
+* Later
+
+- support .harirc
+- support global, standalone script with cli flags
