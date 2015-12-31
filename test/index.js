@@ -21,7 +21,7 @@ import utils from '../lib/utils'
 //----------------------------------------------------------
 // tests
 //----------------------------------------------------------
-test('constructor', t => {
+test.skip('constructor', t => {
   const hari = new Hari()
   t.is(hari.running, false)
   t.is(hari.runs, 0)
@@ -30,7 +30,7 @@ test('constructor', t => {
   t.is(hari.args, void 0)
 })
 
-test('clear', t => {
+test.skip('clear', t => {
   const hari = new Hari()
   sinon.stub(proc, 'spawn')
   hari.clear()
