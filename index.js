@@ -5,7 +5,6 @@
 //----------------------------------------------------------
 // npm
 const chokidar = require('chokidar')
-const cursor = require('cli-cursor')
 
 // local
 const util = require('./lib/utils')
