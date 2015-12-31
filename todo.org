@@ -1,8 +1,4 @@
-- [X] wrap init method into constructor
-- [X] simplify parseMs
-
 - [ ] hide and show cursor
-- [ ] group util methods
 
 - [ ] finish docstrings
 - [ ] update tests

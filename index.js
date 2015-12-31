@@ -8,6 +8,7 @@ const chokidar = require('chokidar')
 
 // local
 const util = require('./lib/utils')
+const time = require('./lib/time')
 
 //----------------------------------------------------------
 // logic
@@ -17,7 +18,7 @@ function hari() {
   let runs = 0
   let cmd = void 0
   const initDate = new Date()
-  const startTime = util.parseTime(initDate)
+  const startTime = time.fromOb(initDate)
   const timestamp = Date.parse(initDate)
 
   const run = () => {
