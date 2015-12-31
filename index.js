@@ -11,37 +11,44 @@ const util = require('./lib/utils')
 const time = require('./lib/time')
 
 //----------------------------------------------------------
-// logic
+// vars
 //----------------------------------------------------------
-function hari() {
-  let running = false
-  let runs = 0
-  let cmd = void 0
-  const initDate = new Date()
-  const startTime = time.fromOb(initDate)
-  const timestamp = Date.parse(initDate)
+let cmd
+  , initDate
+  , startTime
+  , timestamp
 
-  const run = () => {
-    console.log(util.header(startTime, timestamp, runs))
-    cmd()
+let running = false
+let runs = 0
+
+//----------------------------------------------------------
+// fns
+//----------------------------------------------------------
+const hari = () => util.readJson('./package.json').then(init)
+
+const debounce = () => {
+  if (!running && cmd) {
+    running = true
+    runs += 1
+    util.clear().on('close', run)
+    setTimeout(() => running = false, 50)
   }
+}
 
-  const debounce = () => {
-    if (!running && cmd) {
-      running = true
-      runs += 1
-      util.clear().on('close', run)
-      setTimeout(() => running = false, 50)
-    }
-  }
+const init = ob => {
+  initDate = new Date()
+  startTime = time.fromOb(initDate)
+  timestamp = Date.parse(initDate)
+  cmd = util.parseCmd(ob.hari.run)
+  return chokidar.watch(ob.hari.watch).on('all', debounce)
+}
 
-  return util.readJson('./package.json').then(pkg => {
-    cmd = util.parseCmd(pkg.hari.run)
-    return chokidar.watch(pkg.hari.watch).on('all', debounce)
-  })
+const run = () => {
+  console.log(util.header(startTime, timestamp, runs))
+  cmd()
 }
 
 //----------------------------------------------------------
-// exports
+// export
 //----------------------------------------------------------
-module.exports = hari
+module.exports = Object.assign(hari, {run, debounce, init})
