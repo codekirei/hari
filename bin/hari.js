@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 
 const Hari = require('../')
-new Hari()
+new Hari().init()

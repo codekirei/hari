@@ -5,6 +5,7 @@
 //----------------------------------------------------------
 // npm
 const chokidar = require('chokidar')
+const restoreCursor = require('restore-cursor')
 
 // local
 const util = require('./lib/utils')
@@ -23,6 +24,11 @@ module.exports = class Hari {
     return this
   }
 
+  ansi(codes) {
+    const write = code => process.stdout.write(`\u001b[${code}`)
+    return typeof codes === 'object' ? codes.map(write) : write(codes)
+  }
+
   bindTimes(date) {
     this.startTime = time.fromOb(date)
     this.timestamp = Date.parse(date)
@@ -32,12 +38,13 @@ module.exports = class Hari {
     if (!this.running && this.cmd) {
       this.running = true
       this.runs += 1
-      util.clear().on('close', this.print.bind(this))
+      this.print()
       setTimeout(() => this.running = false, 50)
     }
   }
 
   init() {
+    restoreCursor()
     return util.readJson('./package.json')
       .then(ob => {
         this.bindTimes(new Date())
@@ -48,7 +55,8 @@ module.exports = class Hari {
   }
 
   print() {
+    this.ansi(['2J', 'H'])
     console.log(util.header(this.startTime, this.timestamp, this.runs))
-    this.cmd()
+    this.cmd().on('close', () => this.ansi('?25l'))
   }
 }

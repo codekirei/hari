@@ -7,7 +7,7 @@
     "cover": "nyc ava",
     "dev": "./bin/hari.js",
     "md": "pm2 start pen",
-    "test-dev": "mocha -w --reporter=progress",
+    "test-dev": "mocha --reporter=progress",
     "test": "mocha",
     "test-ci": "nyc --reporter=lcovonly ava"
   },
@@ -32,7 +32,8 @@
   "dependencies": {
     "ansi-styles": "^2.1.0",
     "bluebird": "^3.1.1",
-    "chokidar": "^1.4.1"
+    "chokidar": "^1.4.1",
+    "restore-cursor": "^1.0.1"
   },
   "devDependencies": {
     "ava": "^0.9.1",
