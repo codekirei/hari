@@ -7,8 +7,8 @@
     "cover": "nyc ava",
     "dev": "./bin/hari.js",
     "md": "pm2 start pen",
-    "test-dev": "mocha --reporter=progress",
-    "test": "mocha",
+    "test-dev": "ava",
+    "test": "ava",
     "test-ci": "nyc --reporter=lcovonly ava"
   },
   "bin": {
@@ -37,8 +37,6 @@
   },
   "devDependencies": {
     "ava": "^0.9.1",
-    "chai": "^3.4.1",
-    "mocha": "^2.3.4",
     "nyc": "^5.0.1",
     "sinon": "^1.17.2"
   },
