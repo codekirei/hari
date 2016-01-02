@@ -1,3 +1,4 @@
+- [ ] add should re-run if changes during run; add timeout back to debounce
 - [ ] update tests
 
 - [ ] make example
@@ -7,9 +8,6 @@
 
 * Later
 
-- better error handling
-- consider switching to steam output
-  - hide cursor?
-  - steaming duration?
+- steaming duration?
 - support .harirc
 - support global, standalone script with cli flags

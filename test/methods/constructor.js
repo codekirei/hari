@@ -3,15 +3,12 @@
 //----------------------------------------------------------
 // modules
 //----------------------------------------------------------
-// node
-import test from 'ava'
-
 // npm
-// const sinon = require('sinon')
-// const chokidar = require('chokidar')
+import test from 'ava'
+import sinon from 'sinon'
 
 // local
-import Hari from '../'
+import Hari from '../../'
 
 //----------------------------------------------------------
 // tests

@@ -21,6 +21,7 @@ module.exports = class Hari {
     this.cmd = void 0
     this.startTime = void 0
     this.timestamp = void 0
+    this.watcher = void 0
     return this
   }
 
@@ -39,7 +40,6 @@ module.exports = class Hari {
       this.running = true
       this.runs += 1
       this.print()
-      setTimeout(() => this.running = false, 50)
     }
   }
 
@@ -49,7 +49,9 @@ module.exports = class Hari {
       .then(ob => {
         this.bindTimes(new Date())
         this.cmd = util.parseCmd(ob.hari.run)
-        return chokidar.watch(ob.hari.watch).on('all', this.debounce.bind(this))
+        this.watcher = chokidar.watch(ob.hari.watch)
+          .on('all', this.debounce.bind(this))
+        return this.watcher
       })
       .catch(e => console.log(e.stack))
   }
@@ -57,6 +59,9 @@ module.exports = class Hari {
   print() {
     this.ansi(['2J', 'H'])
     console.log(util.header(this.startTime, this.timestamp, this.runs))
-    this.cmd().on('close', () => this.ansi('?25l'))
+    this.cmd().on('close', () => {
+      this.ansi('?25l')
+      this.running = false
+    })
   }
 }

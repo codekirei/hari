@@ -44,7 +44,7 @@
     "run": "npm run test-dev -s",
     "watch": [
       "index.js",
-      "test/*.js",
+      "test/**/*.js",
       "lib/*.js"
     ]
   }
