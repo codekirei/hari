@@ -1,1 +1,6 @@
-This file is used in the test for Hari.watch().
+{
+  "hari": {
+    "run": "",
+    "watch": []
+  }
+}

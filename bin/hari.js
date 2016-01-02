@@ -1,3 +1,4 @@
 #!/usr/bin/env node
 
-require('../')()
+const Hari = require('../')
+new Hari()

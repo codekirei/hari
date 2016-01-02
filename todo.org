@@ -7,6 +7,7 @@
 
 * Later
 
+- better error handling
 - consider switching to steam output
   - hide cursor?
   - steaming duration?
