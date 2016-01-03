@@ -19,9 +19,10 @@ module.exports = class Hari {
     this.running = false
     this.runs = 0
     this.cmd = void 0
+    this.subP = void 0
     this.startTime = void 0
     this.timestamp = void 0
-    this.watcher = void 0
+    this.debounce = void 0
     return this
   }
 
@@ -35,33 +36,25 @@ module.exports = class Hari {
     this.timestamp = Date.parse(date)
   }
 
-  debounce() {
-    if (!this.running && this.cmd) {
-      this.running = true
-      this.runs += 1
-      this.print()
-    }
-  }
-
   init() {
     restoreCursor()
     return util.readJson('./package.json')
       .then(ob => {
         this.bindTimes(new Date())
         this.cmd = util.parseCmd(ob.hari.run)
-        this.watcher = chokidar.watch(ob.hari.watch)
-          .on('all', this.debounce.bind(this))
-        return this.watcher
+        return chokidar.watch(ob.hari.watch).on('all', () => {
+          clearTimeout(this.debounce)
+          this.debounce = setTimeout(() => this.print(), 50)
+        })
       })
       .catch(e => console.log(e.stack))
   }
 
   print() {
+    this.runs += 1
+    if (this.subP && this.subP.exitCode === null) this.subP.kill()
     this.ansi(['2J', 'H'])
     console.log(util.header(this.startTime, this.timestamp, this.runs))
-    this.cmd().on('close', () => {
-      this.ansi('?25l')
-      this.running = false
-    })
+    this.subP = this.cmd().on('close', () => this.ansi('?25l'))
   }
 }
