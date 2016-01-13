@@ -1,4 +1,3 @@
-- [ ] add should re-run if changes during run; add timeout back to debounce
 - [ ] update tests
 
 - [ ] make example
