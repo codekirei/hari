@@ -57,3 +57,15 @@ test('buildCmdFn - with args', t => {
 
 // parseCmd
 //----------------------------------------------------------
+test('parseCmd', t => {
+  // prep
+  sinon.stub(child, 'spawn')
+  const cmd = 'test --foo'
+
+  // test
+  utils.parseCmd(cmd)()
+  t.same(child.spawn.args[0], ['test', ['--foo'], {stdio: 'inherit'}])
+
+  // cleanup
+  child.spawn.restore()
+})
