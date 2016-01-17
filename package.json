@@ -41,7 +41,7 @@
     "sinon": "^1.17.2"
   },
   "hari": {
-    "run": "ava",
+    "run": "ava --verbose",
     "watch": [
       "index.js",
       "test/**/*.js",
