@@ -3,8 +3,12 @@
 //----------------------------------------------------------
 // modules
 //----------------------------------------------------------
+// node
+import child from 'child_process'
+
 // npm
 import test from 'ava'
+import sinon from 'sinon'
 
 // local
 import utils from '../lib/utils'
@@ -25,10 +29,31 @@ test('shift', t => t.same(
 
 // buildCmdFn
 //----------------------------------------------------------
-// test('build cmd fn', t => {
-//   const fn = utils.buildCmdFn(['test'])
-  
-// })
+test('buildCmdFn - no args', t => {
+  // prep
+  sinon.stub(child, 'spawn')
+  const cmd = ['test']
+
+  // test
+  utils.buildCmdFn(cmd)()
+  t.same(child.spawn.args[0], ['test', {stdio: 'inherit'}])
+
+  // cleanup
+  child.spawn.restore()
+})
+
+test('buildCmdFn - with args', t => {
+  // prep
+  sinon.stub(child, 'spawn')
+  const cmd = ['test', ['--foo', '--bar']]
+
+  // test
+  utils.buildCmdFn(cmd)()
+  t.same(child.spawn.args[0], cmd.concat({stdio: 'inherit'}))
+
+  // cleanup
+  child.spawn.restore()
+})
 
 // parseCmd
 //----------------------------------------------------------
