@@ -1,4 +1,4 @@
-- [ ] update tests
+- [ ] write tests for init method
 
 - [ ] make example
 - [ ] write readme
