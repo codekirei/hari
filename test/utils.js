@@ -9,6 +9,7 @@ import child from 'child_process'
 // npm
 import test from 'ava'
 import sinon from 'sinon'
+import billboard from 'multiline-billboard'
 
 // local
 import utils from '../lib/utils'
@@ -19,6 +20,21 @@ import utils from '../lib/utils'
 
 // header
 //----------------------------------------------------------
+test('header', t => {
+  const clock = sinon.useFakeTimers()
+  const date = new Date()
+  const strs =
+    [ 'First Run │ 4:00:00'
+    , 'Last Run  │ 4:00:00'
+    , 'Elapsed   │ 0:00:00'
+    , 'Runs      │ 0'
+    ]
+  t.is(
+    utils.header('4:00:00', Date.parse(date), 0)
+    , billboard(strs, {justify: 'left'})
+  )
+  clock.restore()
+})
 
 // shift
 //----------------------------------------------------------
