@@ -16,13 +16,13 @@ const time = require('./lib/time')
 //----------------------------------------------------------
 module.exports = class Hari {
   constructor() {
+    this.cmd = void 0
+    this.debounce = void 0
     this.running = false
     this.runs = 0
-    this.cmd = void 0
-    this.subP = void 0
     this.startTime = void 0
+    this.subP = void 0
     this.timestamp = void 0
-    this.debounce = void 0
     return this
   }
 
