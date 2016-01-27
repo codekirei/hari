@@ -45,7 +45,7 @@ test('shift', t => t.same(
 
 // readJson
 //----------------------------------------------------------
-test('readJson', async t => {
+test('readJson - success', async t => {
   const res = await utils.readJson('./fixture')
   const expected =
     { hari:
@@ -55,6 +55,8 @@ test('readJson', async t => {
     }
   t.same(res, expected)
 })
+
+test('resJson - err', t => t.throws(utils.readJson('./DNE')))
 
 // buildCmdFn
 //----------------------------------------------------------
