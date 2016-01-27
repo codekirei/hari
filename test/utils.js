@@ -45,6 +45,16 @@ test('shift', t => t.same(
 
 // readJson
 //----------------------------------------------------------
+test('readJson', async t => {
+  const res = await utils.readJson('./fixture')
+  const expected =
+    { hari:
+      { run: ''
+      , watch: []
+      }
+    }
+  t.same(res, expected)
+})
 
 // buildCmdFn
 //----------------------------------------------------------
