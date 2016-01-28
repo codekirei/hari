@@ -56,7 +56,7 @@ module.exports = class Hari {
     this.runs += 1
     if (this.subP && this.subP.exitCode === null) this.subP.kill()
     this.ansi(['2J', 'H'])
-    console.log(util.header(this.startTime, this.timestamp, this.runs))
+    process.stdout.write(util.header(this.startTime, this.timestamp, this.runs))
     this.subP = this.cmd().on('close', () => this.ansi('?25l'))
   }
 }

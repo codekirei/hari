@@ -4,6 +4,9 @@
 // modules
 //----------------------------------------------------------
 // node
+const EOL = require('os').EOL
+
+// node
 const child = require('child_process')
 
 // npm
@@ -44,7 +47,7 @@ describe('lib/utils', () => {
         ]
       assert.equal(
         utils.header('4:00:00', Date.parse(new Date()), 0)
-        , billboard(content, { justify: 'left' })
+        , billboard(content, { justify: 'left' }) + EOL
       )
       clock.restore()
     })
