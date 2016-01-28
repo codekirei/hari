@@ -4,61 +4,79 @@
 // modules
 //----------------------------------------------------------
 // npm
-import test from 'ava'
-import sinon from 'sinon'
+const assert = require('chai').assert
+const sinon = require('sinon')
 
 // local
-import time from '../lib/time'
+const time = require('../lib/time')
 
 //----------------------------------------------------------
 // tests
 //----------------------------------------------------------
+describe('time utilities', () => {
+  // hooks
+  //----------------------------------------------------------
+  let clock
+  beforeEach(() => clock = sinon.useFakeTimers())
+  afterEach(() => clock.restore())
 
-// diff
-//----------------------------------------------------------
-test('diff', t => {
-  // prep
-  const clock = sinon.useFakeTimers()
-  sinon.spy(time, 'fromMs')
+  // diff
+  //----------------------------------------------------------
+  describe('diff', () => {
+    it('call time.fromMs with correct param', () => {
+      // prep
+      sinon.spy(time, 'fromMs')
+      const from = new Date()
+      clock.tick(100)
+      const to = new Date()
 
-  // assign date objects
-  const from = new Date()
-  clock.tick()
-  const to = new Date()
+      // test
+      time.diff(from, to)
+      assert.isTrue(time.fromMs.calledWith(to - from))
 
-  // test
-  time.diff(from, to)
-  t.true(time.fromMs.calledWith(from - to))
+      // clean
+      time.fromMs.restore()
+    })
+  })
 
-  // cleanup
-  time.fromMs.restore()
-  clock.restore()
+  // digit
+  //----------------------------------------------------------
+  describe('digit', () => {
+    it('prepend', () =>
+       assert.equal(time.digit(1), '01'))
+    it('noop', () =>
+      assert.equal(time.digit(10), 10))
+  })
+
+  // fromMs
+  //----------------------------------------------------------
+  describe('fromMs', () => {
+    it('convert ms count to H:M:S string', () => {
+      const pairs =
+        [ [ 77777777, '21:36:17' ]
+        , [ 7777777, '2:09:37' ]
+        , [ 777777, '0:12:57' ]
+        , [ 77777, '0:01:17' ]
+        , [ 7777, '0:00:07']
+        ]
+      pairs.map(pair =>
+        assert.equal(time.fromMs(pair[0]), pair[1]))
+    })
+  })
+
+  // fromOb
+  //----------------------------------------------------------
+  describe('fromOb', () => {
+    it('convert date object to H:M:S string', () =>
+      assert.equal(time.fromOb(new Date()), '4:00:00'))
+  })
+
+  // hours
+  //----------------------------------------------------------
+  describe('hours', () => {
+    it('> 12', () =>
+      assert.equal(time.hours(14), 2))
+    it('<= 12', () =>
+      assert.equal(time.hours(12), 12))
+  })
 })
-
-// digit
-//----------------------------------------------------------
-test('digit - prepend', t => t.is(time.digit(1), '01'))
-test('digit - do not prepend', t => t.is(time.digit(10), 10))
-
-// fromMs
-//----------------------------------------------------------
-test('fromMs', t => {
-  t.is(time.fromMs(77777777), '21:36:17')
-  t.is(time.fromMs(7777777), '2:09:37')
-  t.is(time.fromMs(777777), '0:12:57')
-  t.is(time.fromMs(77777), '0:01:17')
-  t.is(time.fromMs(7777), '0:00:07')
-})
-
-// fromOb
-//----------------------------------------------------------
-test('fromOb', t => {
-  const clock = sinon.useFakeTimers()
-  t.is(time.fromOb(new Date()), '4:00:00')
-  clock.restore()
-})
-
-// hours
-//----------------------------------------------------------
-test('hours - >12', t => t.is(time.hours(14), 2))
-test('hours - <=12', t => t.is(time.hours(12), 12))

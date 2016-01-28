@@ -4,12 +4,11 @@
   "description": "automated script runner",
   "main": "index.js",
   "scripts": {
-    "cover": "nyc ava",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha &> /dev/null && istanbul report text && rm -r ./coverage",
     "dev": "./bin/hari.js",
     "md": "pm2 start pen",
-    "test-dev": "ava",
-    "test": "ava",
-    "test-ci": "nyc --reporter=lcovonly ava"
+    "test": "mocha",
+    "test-ci": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly"
   },
   "bin": {
     "hari": "./bin/hari.js"
@@ -37,13 +36,14 @@
     "restore-cursor": "^1.0.1"
   },
   "devDependencies": {
-    "ava": "^0.9.1",
+    "chai": "^3.4.1",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.4.4",
     "mock-fs": "^3.6.0",
-    "nyc": "^5.0.1",
     "sinon": "^1.17.2"
   },
   "hari": {
-    "run": "ava --verbose",
+    "run": "npm test -s",
     "watch": [
       "index.js",
       "test/**/*.js",
