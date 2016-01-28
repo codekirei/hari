@@ -47,7 +47,9 @@ module.exports = class Hari {
           this.debounce = setTimeout(() => this.print(), 50)
         })
       })
-      .catch(e => console.log(e.stack))
+      .catch(e => {
+        console.error(e.stack)
+      })
   }
 
   print() {
