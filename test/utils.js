@@ -17,18 +17,7 @@ const mock = require('mock-fs')
 
 // local
 const utils = require('../lib/utils')
-
-//----------------------------------------------------------
-// fixtures
-//----------------------------------------------------------
-const fixture = `
-{
-  "hari":
-    { "run": ""
-    , "watch": []
-    }
-}
-`
+const fixtures = require('./fixtures')
 
 //----------------------------------------------------------
 // tests
@@ -67,21 +56,21 @@ describe('lib/utils', () => {
   //----------------------------------------------------------
   describe('readJson', () => {
     it('read json file', () => {
-      mock({fixture})
+      mock(fixtures)
       const expected =
         { hari:
-          { run: ''
-          , watch: []
+          { run: 'node test.js'
+          , watch: 'test.js'
           }
         }
-      utils.readJson('fixture').then(res => {
+      utils.readJson('package.json').then(res => {
         assert.deepEqual(res, expected)
         mock.restore()
       })
     })
 
     it('throw on error', () => {
-      utils.readJson('fixture').catch(e => {
+      utils.readJson('package.json').catch(e => {
         assert.isTrue(e instanceof Error)
       })
     })
