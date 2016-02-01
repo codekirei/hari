@@ -8,6 +8,5 @@
 * Later
 
 - figure out how to test for restoreCursor in init method
-- figure out a better way to test the CB inside chokidar.watch in init method
 - steaming duration?
 - support global, standalone script with cli flags
