@@ -33,7 +33,7 @@ module.exports = class Hari {
 
   bindTimes(date) {
     this.startTime = time.fromOb(date)
-    this.timestamp = Date.parse(date)
+    this.timestamp = date.valueOf()
   }
 
   init() {

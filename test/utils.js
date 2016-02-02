@@ -1,30 +1,17 @@
+/* global
+ , EOL
+ , assert
+ , billboard
+ , child
+ , fixtures
+ , mock
+ , sinon
+ , utils
+ */
+
 'use strict'
 
-//----------------------------------------------------------
-// modules
-//----------------------------------------------------------
-// node
-const EOL = require('os').EOL
-
-// node
-const child = require('child_process')
-
-// npm
-const assert = require('chai').assert
-const sinon = require('sinon')
-const billboard = require('multiline-billboard')
-const mock = require('mock-fs')
-
-// local
-const utils = require('../lib/utils')
-const fixtures = require('./fixtures')
-
-//----------------------------------------------------------
-// tests
-//----------------------------------------------------------
 describe('lib/utils', () => {
-  // header
-  //----------------------------------------------------------
   describe('header', () => {
     it('build header with multiline-billboard', () => {
       const clock = sinon.useFakeTimers()
@@ -42,8 +29,6 @@ describe('lib/utils', () => {
     })
   })
 
-  // shift
-  //----------------------------------------------------------
   describe('shift', () => {
     it('[a, b, c] => [a, [b, c]]', () =>
       assert.deepEqual(
@@ -52,8 +37,6 @@ describe('lib/utils', () => {
       ))
   })
 
-  // readJson
-  //----------------------------------------------------------
   describe('readJson', () => {
     it('read json file', () => {
       mock(fixtures)
@@ -76,8 +59,6 @@ describe('lib/utils', () => {
     })
   })
 
-  // buildCmdFn
-  //----------------------------------------------------------
   describe('buildCmdFn', () => {
     beforeEach(() => {
       sinon.stub(child, 'spawn')
@@ -106,8 +87,6 @@ describe('lib/utils', () => {
     })
   })
 
-  // parseCmd
-  //----------------------------------------------------------
   describe('parseCmd', () => {
     // prep
     sinon.stub(child, 'spawn')
@@ -117,7 +96,7 @@ describe('lib/utils', () => {
     utils.parseCmd(cmd)()
     assert.deepEqual(
       child.spawn.args[0]
-      ['test', ['--foo'], { stdio: 'inherit' }]
+      , ['test', ['--foo'], { stdio: 'inherit' }]
     )
 
     // clean

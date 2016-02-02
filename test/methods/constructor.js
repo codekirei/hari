@@ -1,18 +1,11 @@
+/* global
+ , assert
+ , sinon
+ , Hari
+ */
+
 'use strict'
 
-//----------------------------------------------------------
-// modules
-//----------------------------------------------------------
-// npm
-const assert = require('chai').assert
-const sinon = require('sinon')
-
-// local
-const Hari = require('../../')
-
-//----------------------------------------------------------
-// tests
-//----------------------------------------------------------
 module.exports = describe('constructor', () => {
   it('bind props', () => {
     const hari = new Hari()

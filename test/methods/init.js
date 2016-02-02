@@ -1,46 +1,30 @@
+/* globals
+ , Emitter
+ , Hari
+ , assert
+ , chokidar
+ , clock
+ , fixtures
+ , mock
+ , sinon
+ , utils
+ */
+
 'use strict'
 
-//----------------------------------------------------------
-// modules
-//----------------------------------------------------------
-// node
-const Emitter = require('events')
-
-// npm
-const assert = require('chai').assert
-const sinon = require('sinon')
-const chokidar = require('chokidar')
-const mock = require('mock-fs')
-
-// local
-const Hari = require('../../')
-const utils = require('../../lib/utils')
-const fixtures = require('../fixtures')
-
-//----------------------------------------------------------
-// tests
-//----------------------------------------------------------
 module.exports = describe('init', () => {
-  // hooks
-  //----------------------------------------------------------
-  let clock
-
   before(() => {
-    clock = sinon.useFakeTimers()
+    clock.freeze()
     sinon.stub(chokidar, 'watch').returns(new Emitter())
   })
 
   after(() => {
-    chokidar.watch.restore()
     clock.restore()
+    chokidar.watch.restore()
   })
 
-  // cases
-  //----------------------------------------------------------
   it('restore cursor')
 
-  // cases - success
-  //----------------------------------------------------------
   describe('success', () => {
     let hari
       , watcher
@@ -89,8 +73,6 @@ module.exports = describe('init', () => {
     })
   })
 
-  // cases - err
-  //----------------------------------------------------------
   describe('err', () => {
     it.skip('catch and handle read error', () => {
       // prep
