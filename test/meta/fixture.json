@@ -1,0 +1,6 @@
+{
+  "hari":
+    { "run": "node test.js"
+    , "watch": "test.js"
+    }
+}

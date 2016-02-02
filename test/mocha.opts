@@ -1,1 +1,2 @@
---require test/test-support/modules
+--compilers coffee:coffee-script/register
+--require test/meta/modules

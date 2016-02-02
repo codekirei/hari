@@ -14,12 +14,13 @@ global.Emitter = require('events')
 // npm
 //----------------------------------------------------------
 global.billboard = require('multiline-billboard')
-global.mock = require('mock-fs')
 global.chokidar = require('chokidar')
 global.reqDir = require('require-directory')
 
 // chai
 const chai = require('chai')
+const chaiAsPromised = require('chai-as-promised')
+chai.use(chaiAsPromised)
 global.assert = chai.assert
 
 // sinon
@@ -40,4 +41,3 @@ global.clock = clock()
 global.Hari = require('../..')
 global.time = require('../../lib/time')
 global.utils = require('../../lib/utils')
-global.fixtures = require('./fixtures')
