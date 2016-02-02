@@ -6,14 +6,14 @@
   "scripts": {
     "cr": "npm run cover -s && npm run report -s",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha",
-    "dev": "./bin/hari.js",
+    "dev": "./cli.js",
     "md": "pm2 start pen",
     "report": "istanbul report text",
     "test": "mocha",
     "test-ci": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly"
   },
   "bin": {
-    "hari": "./bin/hari.js"
+    "hari": "./cli.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,8 @@
     "ansi-styles": "^2.1.0",
     "bluebird": "^3.1.1",
     "chokidar": "^1.4.1",
+    "liftoff": "^2.2.0",
+    "minimist": "^1.2.0",
     "multiline-billboard": "^0.2.0",
     "restore-cursor": "^1.0.1"
   },

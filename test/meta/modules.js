@@ -28,9 +28,9 @@ const sinon = require('sinon')
 const clock = () => {
   let c
   return { freeze: () => c = sinon.useFakeTimers()
-          , tick: ms => c.tick(ms)
-          , restore: () => c.restore()
-          }
+         , tick: ms => c.tick(ms)
+         , restore: () => c.restore()
+         }
 }
 global.sinon = sinon
 global.clock = clock()
