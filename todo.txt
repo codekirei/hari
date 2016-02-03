@@ -1,19 +1,17 @@
 - Functionality
-  - [ ] switch to global cli that prefers local
-    - liftoff
-    - minimist
-    - update-notifier
-  - [ ] still support package.json with pkg-conf (see ava)
-  - [ ] parse .harirc ini files
-    - ini
+  - [ ] handle constructor args
+    - [ ] still support package.json with pkg-conf (see ava)
+    - [ ] parse .harirc ini files
+      - ini
+  - [ ] update-notifier
 
 - [ ] finish tests
   -  [ ] figure out how to test for restoreCursor in init method
-- [ ] make example
 - [ ] write readme
 - [ ] travis + coveralls
 - [ ] publish on npm
 
 - Later
   - [ ] cli completion
+  - [ ] prefer local version?
   - [ ] steaming duration?
