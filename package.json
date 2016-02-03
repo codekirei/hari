@@ -43,6 +43,7 @@
     "chai": "^3.4.1",
     "chai-as-promised": "^5.2.0",
     "coffee-script": "^1.10.0",
+    "get-stream": "^1.1.0",
     "istanbul": "^0.4.2",
     "mocha": "^2.4.4",
     "require-directory": "^2.1.1",

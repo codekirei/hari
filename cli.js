@@ -1,35 +1,21 @@
-#!/usr/bin/env node
+#! /usr/bin/env node
+
 'use strict'
 
-//----------------------------------------------------------
-// modules
-//----------------------------------------------------------
-// npm
 const Liftoff = require('liftoff')
 const argv = require('minimist')(process.argv.slice(2))
+const Hari = require('./')
 
-//----------------------------------------------------------
-// build cli env
-//----------------------------------------------------------
-const HariCLI = new Liftoff(
+new Liftoff(
   { name: 'hari'
   , configName: '.hari'
   , extensions:
     { rc: null
     }
-  , completions: null // todo
+  , completions: null
   }
-)
-
-HariCLI.launch(
+).launch(
   { configPath: argv.config || argv.conf
   }
-  , init
+  , env => new Hari(env, argv)
 )
-
-//----------------------------------------------------------
-// launch app
-//----------------------------------------------------------
-function init(env) {
-  console.log(env.configPath)
-}

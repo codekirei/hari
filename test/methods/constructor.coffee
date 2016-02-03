@@ -6,7 +6,6 @@ describe 'constructor', ->
     pairs =
       [ [ hari.cmd, undefined ]
       , [ hari.debounce, undefined ]
-      , [ hari.running, false ]
       , [ hari.runs, 0 ]
       , [ hari.startTime, undefined ]
       , [ hari.subP, undefined ]

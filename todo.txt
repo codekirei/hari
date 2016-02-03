@@ -15,4 +15,5 @@
 - [ ] publish on npm
 
 - Later
+  - [ ] cli completion
   - [ ] steaming duration?

@@ -5,6 +5,9 @@ describe 'lib/time', ->
   afterEach -> clock.restore()
   reqDir module, './time'
 
-describe 'lib/utils', -> reqDir module, './utils'
+modules =
+  'lib/utils': './utils'
+  'methods': './methods'
 
-describe 'methods', -> reqDir module, './methods'
+test = (str, path) -> describe str, -> reqDir module, path
+test str, path for str, path of modules

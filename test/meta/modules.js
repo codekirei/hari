@@ -15,6 +15,7 @@ global.Emitter = require('events')
 //----------------------------------------------------------
 global.billboard = require('multiline-billboard')
 global.chokidar = require('chokidar')
+global.getStream = require('get-stream')
 global.reqDir = require('require-directory')
 
 // chai

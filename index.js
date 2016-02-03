@@ -15,14 +15,9 @@ const time = require('./lib/time')
 // logic
 //----------------------------------------------------------
 module.exports = class Hari {
-  constructor() {
-    this.cmd = void 0
-    this.debounce = void 0
-    this.running = false
+  constructor(env, flags) {
+    // undefined props: cmd, debounce, startTime, subP, timestamp
     this.runs = 0
-    this.startTime = void 0
-    this.subP = void 0
-    this.timestamp = void 0
     return this
   }
 
